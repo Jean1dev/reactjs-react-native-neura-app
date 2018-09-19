@@ -2,6 +2,7 @@ import { firebaseDatabase } from "../utils/firabaseUtils";
 
 
 export default class FirebaseService {
+
     static getDataList = (nodePath, callback, size = 10) => {
 
         let query = firebaseDatabase.ref(nodePath)
@@ -28,6 +29,28 @@ export default class FirebaseService {
 
     static remove = (id, node) => {
         return firebaseDatabase.ref(node + '/' + id).remove();
+    };
+    
+    static createUser = (email, password) => {
+        return firebaseDatabase.createUserWithEmailAndPassword(email, password);
+    };
+    
+    static login = (email, password) => {
+        return firebaseDatabase.signInWithEmailAndPassword(email, password);
+    };
+    
+    static logout = () => {
+        return firebaseDatabase.signOut();
+    };
+    
+    static onAuthChange = (callbackLogin, callbackLogout) => {
+        firebaseDatabase.onAuthStateChanged(authUser => {
+            if (!authUser) {
+                callbackLogout(authUser);
+            } else {
+                callbackLogin(authUser);
+            }
+        });
     };
 
 }

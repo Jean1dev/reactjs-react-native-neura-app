@@ -11,6 +11,10 @@ import { Route } from 'react-router-dom';
 import { TopBar } from './components/TopBar/Topbar';
 import { Add } from './components/Add/Add'
 import { Welcome } from './components/Welcome/Welcome'
+import { SignIn } from './components/Login/login'
+import Login from './components/login2/login'
+import  {PaymentForm}  from './components/checkoutCard/PaymentForm'
+
 
 /**
  * https://blog.tecsinapse.com.br/utilizando-react-redux-firebase-2bf93ea9f422
@@ -63,6 +67,22 @@ class App extends Component {
                             />
 
                             <Route exact
+                                path={urls.login.path}
+                                render={(props) =>
+                                    <SignIn {...props}></SignIn>}
+                            />
+
+                            <Route exact
+                                path={urls.login2.path}
+                                render={(props) => <Login {...props} />}
+                            />
+
+                            <Route exact
+                                path={urls.pay.path}
+                                render={(props) => <PaymentForm {...props} />}
+                            />
+
+                            <Route exact
                                 path={privateUrls.edit.path}
                                 render={(props) => <Add {...props} />}
                             />
@@ -74,5 +94,7 @@ class App extends Component {
         );
     }
 }
+
+
 
 export default App;
